@@ -44,6 +44,10 @@ export class Deck {
         }
     }
 
+    draw() {
+        return this.cards.pop()
+    }
+
     clear() {
         this.cards = [];
         this.size = 0;
