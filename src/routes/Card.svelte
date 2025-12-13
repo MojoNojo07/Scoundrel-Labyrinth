@@ -1,16 +1,19 @@
-<button class="card" onmousedown={select} id="newCard">
-    {card_id} <br>
+<button class="card" onmousedown={select} onmousemove={() => console.log("squeak!")} id="newCard">
     {card.toString()}
-
 </button>
 
 <style>
     
     button {
         all: unset;
+        user-select: none;
         color:black;
         border: 5px solid white;
+        border-radius: 2px;
         width:200px;
+        height: 350px;
+        margin: auto;
+        margin-top: auto;
         margin-left:50px;
         transition: transform 0.1s;
         text-align: center;
@@ -21,13 +24,10 @@
     }
 </style>
 
-<script>
+<script lang="ts">
     let { card_id, card } = $props();
-    /**
-     * @type {HTMLElement | null}
-     */
-    var thisCard;
-    var selected = false;
+    var thisCard: HTMLElement | null;
+    var selected: boolean = false;
 
     import { onMount } from 'svelte';
 
@@ -55,10 +55,10 @@
         if (thisCard != null) {
             if (selected) {
                 thisCard.style.borderColor = "yellow";
-                console.log("selected " + card.toString() + " with ID " + thisCard.id);
+                // console.log("selected " + card.toString() + " with ID " + thisCard.id);
             } else {
                 thisCard.style.borderColor = "white";
-                console.log("deselected " + card.toString() + " with ID " + card_id);
+                // console.log("deselected " + card.toString() + " with ID " + card_id);
             }
         }
     }
