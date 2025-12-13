@@ -58,7 +58,6 @@
     function draw() {
         let card = deck.draw();
         card_count++;
-        console.log(card?.toString());
         let table = document.getElementById("table")
         let card_element = mount(Card, {
             target: table!,
