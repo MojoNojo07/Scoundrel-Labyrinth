@@ -3,15 +3,17 @@
     .table {
         background-color: black;
         border: 5px solid purple;
-        width:min-content;
+        width: 1300px;
+        height: 375px;
         padding:20px;
-        display:flex;
+        display:block;
+        align-items: start;
     }
     .table .deck {
         margin: auto;
         margin-top: auto;
         background-color: red;
-        border: 3px solid white;
+        border: 5px solid white;
         border-radius: 2px;
         width: 230px;
         height: 350px;
@@ -34,15 +36,26 @@
 <br>
 <button onclick={() => health++}>Increment HP</button>
 <button onclick={() => health--}>Decrement HP</button>
+<br>
+<p id="coords">Coords: 0x 0y</p>
 
 <script lang="ts">
-    import { mount, unmount } from 'svelte';
+    import { mount, onMount, unmount } from 'svelte';
     import { Deck } from './deck.svelte.ts';
     import Card from './Card.svelte';
+
+    var coordsElement = document.getElementById('coords');
 
     var deck: Deck = new Deck();
     var card_count = 0;
     var cards_out: Card[] = []
+
+    // onMount(() => {
+    //     let table = document.getElementById("table");
+    //     let deck_element = mount(Deck, {
+    //         target: table!
+    //     })
+    // })
 
     function populate() {
         deck.populate();
@@ -56,18 +69,31 @@
         deck.clear();
     }
 
+    document.addEventListener('mousemove', function(e) {
+        const x = e.clientX;
+        const y = e.clientY;
+        if (coordsElement != null) {
+            console.log("squeaking at " + x + "x " + y + "y");
+            coordsElement.textContent = "Coords: " + x + "x " + y + "y";
+        }
+    });
+
     function draw() {
-        let card = deck.draw();
-        if (card === null) {
-            console.log("Deck is empty!");
+        if (card_count >= 4) {
+            console.log("Already have 4 cards out!");
         } else {
-            card_count++;
-            let table = document.getElementById("table")
-            let card_element = mount(Card, {
-                target: table!,
-                props: {card_id: card_count, card: card}
-            })
-            cards_out.push(card_element);
+            let card = deck.draw();
+            if (card === null) {
+                console.log("Deck is empty!");
+            } else {
+                card_count++;
+                let table = document.getElementById("table")
+                let card_element = mount(Card, {
+                    target: table!,
+                    props: {card_id: card_count, card: card}
+                })
+                cards_out.push(card_element);
+            }
         }
     }
 
