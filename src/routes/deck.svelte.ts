@@ -1,7 +1,7 @@
 import { Card } from './card';
 
 export class Deck {
-    size: number = 0;
+    size: number = $state(0);
     cards: Card[] = [];
 
     populate(): void {
@@ -45,7 +45,12 @@ export class Deck {
     }
 
     draw() {
-        return this.cards.pop()
+        if (this.size > 0) {
+            this.size--;
+            return this.cards.pop()
+        } else {
+            return null;
+        }
     }
 
     clear() {

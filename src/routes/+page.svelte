@@ -20,6 +20,7 @@
 
 <h1>The Deck</h1>
 <p>HP: {health}</p>
+<p>Deck size: {deck.size}</p>
 <br>
 <div class="table" id="table">
     <button onclick={draw} class="deck">Scoundrel</button>
@@ -36,7 +37,7 @@
 
 <script lang="ts">
     import { mount, unmount } from 'svelte';
-    import { Deck } from './deck';
+    import { Deck } from './deck.svelte.ts';
     import Card from './Card.svelte';
 
     var deck: Deck = new Deck();
@@ -57,13 +58,17 @@
 
     function draw() {
         let card = deck.draw();
-        card_count++;
-        let table = document.getElementById("table")
-        let card_element = mount(Card, {
-            target: table!,
-            props: {card_id: card_count, card: card}
-        })
-        cards_out.push(card_element);
+        if (card === null) {
+            console.log("Deck is empty!");
+        } else {
+            card_count++;
+            let table = document.getElementById("table")
+            let card_element = mount(Card, {
+                target: table!,
+                props: {card_id: card_count, card: card}
+            })
+            cards_out.push(card_element);
+        }
     }
 
     function remove_card() {
