@@ -1,4 +1,4 @@
-<button class="card" onmousedown={select} onmousemove={() => console.log("squeak!")} id="newCard">
+<button class="card" onmousemove={() => {if($click) toMouse()}} id="newCard">
     {card.toString()}
 </button>
 
@@ -10,6 +10,7 @@
         color:black;
         border: 5px solid white;
         border-radius: 2px;
+        position: absolute;
         width:200px;
         height: 350px;
         margin: auto;
@@ -25,13 +26,18 @@
 </style>
 
 <script lang="ts">
+    import { onMount } from 'svelte';
+    import { mousePosition, clickState } from './mousehandler.svelte';
+
     let { card_id, card } = $props();
     var thisCard: HTMLElement | null;
     var selected: boolean = false;
+    const cursor = mousePosition();
+    const click = clickState();
 
-    import { onMount } from 'svelte';
 
     onMount(() => {
+
         console.log("mounted " + card.toString() + " with ID " + card_id);
         thisCard = document.getElementById("newCard");
         if(thisCard === null) {
@@ -60,6 +66,14 @@
                 thisCard.style.borderColor = "white";
                 // console.log("deselected " + card.toString() + " with ID " + card_id);
             }
+        }
+    }
+
+    function toMouse() {
+        if (thisCard != null){
+            console.log("moving card to " + $cursor.x + "x " + $cursor.y + "y")
+            thisCard.style.top = ($cursor.y - 175) + "px";
+            thisCard.style.left = ($cursor.x - 150) + "px";
         }
     }
 </script>

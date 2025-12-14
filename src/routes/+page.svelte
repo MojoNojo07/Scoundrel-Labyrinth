@@ -36,26 +36,26 @@
 <br>
 <button onclick={() => health++}>Increment HP</button>
 <button onclick={() => health--}>Decrement HP</button>
-<br>
-<p id="coords">Coords: 0x 0y</p>
+
 
 <script lang="ts">
     import { mount, onMount, unmount } from 'svelte';
     import { Deck } from './deck.svelte.ts';
     import Card from './Card.svelte';
 
-    var coordsElement = document.getElementById('coords');
-
     var deck: Deck = new Deck();
     var card_count = 0;
-    var cards_out: Card[] = []
+    var cards_out: Card[] = [];
 
-    // onMount(() => {
-    //     let table = document.getElementById("table");
-    //     let deck_element = mount(Deck, {
-    //         target: table!
-    //     })
-    // })
+
+    onMount(() => {
+
+        // let table = document.getElementById("table");
+        // let deck_element = mount(Deck, {
+        //     target: table!
+        // })
+    })
+
 
     function populate() {
         deck.populate();
@@ -69,14 +69,6 @@
         deck.clear();
     }
 
-    document.addEventListener('mousemove', function(e) {
-        const x = e.clientX;
-        const y = e.clientY;
-        if (coordsElement != null) {
-            console.log("squeaking at " + x + "x " + y + "y");
-            coordsElement.textContent = "Coords: " + x + "x " + y + "y";
-        }
-    });
 
     function draw() {
         if (card_count >= 4) {
