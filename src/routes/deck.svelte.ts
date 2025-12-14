@@ -57,5 +57,33 @@ export class Deck {
         this.cards = [];
         this.size = 0;
     }
+
+    remove(suit: string, rank: number) {
+        for (let i: number = 0; i < this.size; i++) {
+            if (this.cards[i].suit == suit && this.cards[i].rank == rank) {
+                console.log("Removing " + this.cards[i].toString());
+                this.cards.splice(i);
+                this.size--;
+            } else {
+                console.log("didn't remove " + this.cards[i].toString());
+            }
+        }
+    }
+
+    scoundrelSetup() {
+        this.populate();
+
+        // remove all red face cards
+        this.remove('Heart', 14);
+        this.remove('Heart', 13);
+        this.remove('Heart', 12);
+        this.remove("Heart", 11);
+        this.remove('Diamond', 14);
+        this.remove('Diamond', 13);
+        this.remove('Diamond', 12);
+        this.remove('Diamond', 11);
+
+        this.shuffle()
+    }
 }
 

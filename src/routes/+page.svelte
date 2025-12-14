@@ -30,9 +30,9 @@
 <button onclick={remove_card}>Remove Card</button>
 <br>
 <button onclick={printToLog}>Log all cards</button>
-<button onclick={populate}>Populate Deck</button>
-<button onclick={shuffle}>Shuffle the Deck</button>
-<button onclick={clear}>Clear the Deck</button>
+<button onclick={populate}>Repopulate Deck</button>
+<button onclick={shuffle}>Shuffle Deck</button>
+<button onclick={clear}>Clear Deck</button>
 <br>
 <button onclick={() => health++}>Increment HP</button>
 <button onclick={() => health--}>Decrement HP</button>
@@ -49,11 +49,7 @@
 
 
     onMount(() => {
-
-        // let table = document.getElementById("table");
-        // let deck_element = mount(Deck, {
-        //     target: table!
-        // })
+        deck.scoundrelSetup();
     })
 
 
